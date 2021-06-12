@@ -7,5 +7,6 @@ namespace ShoppingCart.Core
         public List<Product> Products { get; set; }
         public double Total { get; set; }
         public double SalesTaxRate { get; set; }
+        public double SalesTaxValue { get; set; }
     }
 }

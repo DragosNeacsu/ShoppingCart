@@ -14,7 +14,7 @@ namespace ShoppingCart.Core
         {
             _products = new List<Product>();
         }
-        
+
         public async Task<double> GetTotal()
         {
             return DecimalsHelper.RoundDecimals((decimal)_products.Select(x => x.Price).Sum());
@@ -36,11 +36,13 @@ namespace ShoppingCart.Core
 
         public async Task<CartDetails> GetDetails()
         {
+            var total = await GetTotal();
             return new CartDetails
             {
                 Products = _products,
-                Total = await GetTotal(),
-                SalesTaxRate = _salesTaxRate
+                Total = total,
+                SalesTaxRate = _salesTaxRate,
+                SalesTaxValue = DecimalsHelper.RoundDecimals((decimal)(total * _salesTaxRate / 100))
             };
         }
 
