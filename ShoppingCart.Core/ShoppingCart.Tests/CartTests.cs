@@ -137,5 +137,22 @@ namespace ShoppingCart.Tests
             //Then
             result.SalesTaxValue.Should().Be(35.00);
         }
+
+        [Fact]
+        public async Task Shopping_Cart_Can_calculate_total_with_sales_tax()
+        {
+            //Given
+            var cart = new Cart();
+            await cart.SetSalesTaxRate(12.5);
+            await cart.AddProduct(new Product("Dove Soap", 39.99), 2);
+            await cart.AddProduct(new Product("Axe Deo", 99.99), 2);
+
+            //When
+            var result = await cart.GetDetails();
+
+            //Then
+            result.SalesTaxValue.Should().Be(35.00);
+            result.Total.Should().Be(314.96);
+        }
     }
 }
