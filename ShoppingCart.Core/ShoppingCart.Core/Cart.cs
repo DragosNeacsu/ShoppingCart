@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ShoppingCart.Core
@@ -20,7 +21,7 @@ namespace ShoppingCart.Core
 
         public async Task<double> GetTotal()
         {
-            return 0;
+            return await RoundDecimals((decimal)_products.Select(x => x.Price).Sum());
         }
 
         public async Task AddProduct(Product product, int amount)
