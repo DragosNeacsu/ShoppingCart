@@ -9,5 +9,10 @@ namespace ShoppingCart.Core
         {
             return (double)Math.Round(value, 2, MidpointRounding.AwayFromZero);
         }
+
+        public async Task<double> GetTotal()
+        {
+            return 0;
+        }
     }
 }

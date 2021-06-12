@@ -35,5 +35,15 @@ namespace ShoppingCart.Tests
             //Then
             result.Should().Be(expectedValue);
         }
+
+        [Fact]
+        public async Task Shopping_Cart_Empty_Should_Return_0()
+        {
+            var cart = new Cart();
+
+            var result = await cart.GetTotal();
+
+            result.Should().Be(0);
+        }
     }
 }
