@@ -36,6 +36,21 @@ namespace ShoppingCart.Core
         {
             return _products;
         }
+
+        public async Task<CartDetails> GetDetails()
+        {
+            return new CartDetails
+            {
+                Products = _products,
+                Total = await GetTotal()
+            };
+        }
+    }
+
+    public class CartDetails
+    {
+        public List<Product> Products { get; set; }
+        public double Total { get; set; }
     }
 
     public class Product

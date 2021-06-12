@@ -81,5 +81,22 @@ namespace ShoppingCart.Tests
             result.ForEach(x => x.Name.Should().Be("Dove Soap"));
             result.ForEach(x => x.Price.Should().Be(39.99));
         }
+
+        [Fact]
+        public async Task Shopping_Cart_Returns_Items()
+        {
+            //Given
+            var cart = new Cart();
+            var product = new Product("Dove Soap", 39.99);
+            await cart.AddProduct(product, 5);
+
+            //When
+            var result = await cart.GetDetails();
+
+            //Then
+            result.Products.Count.Should().Be(5);
+            result.Products.ForEach(x => x.Name.Should().Be("Dove Soap"));
+            result.Products.ForEach(x => x.Price.Should().Be(39.99));
+        }
     }
 }
