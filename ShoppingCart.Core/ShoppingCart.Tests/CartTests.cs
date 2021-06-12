@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using FluentAssertions;
@@ -153,6 +154,26 @@ namespace ShoppingCart.Tests
             //Then
             result.SalesTaxValue.Should().Be(35.00);
             result.Total.Should().Be(314.96);
+        }
+
+        [Fact]
+        public async Task Shopping_Cart_Can_calculate_total_with_sales_tax_and_has_items()
+        {
+            //Given
+            var cart = new Cart();
+            await cart.SetSalesTaxRate(12.5);
+            await cart.AddProduct(new Product("Dove Soap", 39.99), 2);
+            await cart.AddProduct(new Product("Axe Deo", 99.99), 2);
+
+            //When
+            var result = await cart.GetDetails();
+
+            //Then
+            result.SalesTaxValue.Should().Be(35.00);
+            result.Total.Should().Be(314.96);
+            result.Products.Should().HaveCount(4);
+            result.Products.Where(x => x.Name == "Dove Soap").ToList().ForEach(x => x.Price.Should().Be(39.99));
+            result.Products.Where(x => x.Name == "Axe Deo").ToList().ForEach(x => x.Price.Should().Be(99.99));
         }
     }
 }

@@ -37,12 +37,13 @@ namespace ShoppingCart.Core
         public async Task<CartDetails> GetDetails()
         {
             var total = await GetTotal();
+            var salesTax = DecimalsHelper.RoundDecimals((decimal)(total * _salesTaxRate / 100));
             return new CartDetails
             {
                 Products = _products,
-                Total = total,
+                Total = total + salesTax,
                 SalesTaxRate = _salesTaxRate,
-                SalesTaxValue = DecimalsHelper.RoundDecimals((decimal)(total * _salesTaxRate / 100))
+                SalesTaxValue = salesTax
             };
         }
 
