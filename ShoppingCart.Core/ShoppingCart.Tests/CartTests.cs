@@ -107,5 +107,19 @@ namespace ShoppingCart.Tests
             result.Products.ForEach(x => x.Price.Should().Be(39.99));
             result.Total.Should().Be(319.92);
         }
+
+        [Fact]
+        public async Task Shopping_Cart_Can_Have_Sales_Tax()
+        {
+            //Given
+            var cart = new Cart();
+
+            //When
+            await cart.SetSalesTaxRate(12.5);
+            var result = await cart.GetDetails();
+
+            //Then
+            result.SalesTaxRate.Should().Be(12.5);
+        }
     }
 }

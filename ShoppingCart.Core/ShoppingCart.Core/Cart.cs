@@ -8,6 +8,7 @@ namespace ShoppingCart.Core
     public class Cart
     {
         private static List<Product> _products;
+        private double _salesTaxRate;
 
         public Cart()
         {
@@ -38,8 +39,14 @@ namespace ShoppingCart.Core
             return new CartDetails
             {
                 Products = _products,
-                Total = await GetTotal()
+                Total = await GetTotal(),
+                SalesTaxRate = _salesTaxRate
             };
+        }
+
+        public async Task SetSalesTaxRate(double salesTaxRate)
+        {
+            _salesTaxRate = salesTaxRate;
         }
     }
 }
