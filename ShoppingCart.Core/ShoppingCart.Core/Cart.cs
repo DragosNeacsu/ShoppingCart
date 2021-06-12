@@ -13,15 +13,10 @@ namespace ShoppingCart.Core
         {
             _products = new List<Product>();
         }
-
-        public async Task<double> RoundDecimals(decimal value)
-        {
-            return (double)Math.Round(value, 2, MidpointRounding.AwayFromZero);
-        }
-
+        
         public async Task<double> GetTotal()
         {
-            return await RoundDecimals((decimal)_products.Select(x => x.Price).Sum());
+            return DecimalsHelper.RoundDecimals((decimal)_products.Select(x => x.Price).Sum());
         }
 
         public async Task AddProduct(Product product, int amount)
