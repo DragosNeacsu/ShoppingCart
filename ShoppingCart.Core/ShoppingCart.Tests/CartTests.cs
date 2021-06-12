@@ -88,5 +88,24 @@ namespace ShoppingCart.Tests
             result.Products.ForEach(x => x.Price.Should().Be(39.99));
             result.Total.Should().Be(199.95);
         }
+
+        [Fact]
+        public async Task Shopping_Cart_Add_Additional_Item_Should_Calculate_Total()
+        {
+            //Given
+            var cart = new Cart();
+            var product = new Product("Dove Soap", 39.99);
+
+            //When
+            await cart.AddProduct(product, 5);
+            await cart.AddProduct(product, 3);
+            var result = await cart.GetDetails();
+
+            //Then
+            result.Products.Count.Should().Be(8);
+            result.Products.ForEach(x => x.Name.Should().Be("Dove Soap"));
+            result.Products.ForEach(x => x.Price.Should().Be(39.99));
+            result.Total.Should().Be(319.92);
+        }
     }
 }
