@@ -7,7 +7,7 @@ namespace ShoppingCart.Core
     {
         public async Task<double> RoundDecimals(decimal value)
         {
-            throw new NotImplementedException();
+            return (double)Math.Round(value, 2, MidpointRounding.AwayFromZero);
         }
     }
 }
