@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using FluentAssertions;
 using ShoppingCart.Core;
@@ -39,11 +40,29 @@ namespace ShoppingCart.Tests
         [Fact]
         public async Task Shopping_Cart_Empty_Should_Return_0()
         {
+            //Given
             var cart = new Cart();
 
+            //When
             var result = await cart.GetTotal();
 
+            //Then
             result.Should().Be(0);
+        }
+
+        [Fact]
+        public async Task Can_Add_Products_To_Shopping_Cart()
+        {
+            //Given
+            var cart = new Cart();
+            var product = new Product("Dove Soap", 39.99);
+            await cart.AddProduct(product);
+
+            //When
+            var result = await cart.GetProducts();
+
+            //Then
+            result.Count.Should().Be(1);
         }
     }
 }
