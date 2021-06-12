@@ -56,13 +56,30 @@ namespace ShoppingCart.Tests
             //Given
             var cart = new Cart();
             var product = new Product("Dove Soap", 39.99);
-            await cart.AddProduct(product);
+            await cart.AddProduct(product, 1);
 
             //When
             var result = await cart.GetProducts();
 
             //Then
             result.Count.Should().Be(1);
+        }
+
+        [Fact]
+        public async Task Can_Add_Multiple_Products_To_Shopping_Cart()
+        {
+            //Given
+            var cart = new Cart();
+            var product = new Product("Dove Soap", 39.99);
+            await cart.AddProduct(product, 5);
+
+            //When
+            var result = await cart.GetProducts();
+
+            //Then
+            result.Count.Should().Be(5);
+            result.ForEach(x => x.Name.Should().Be("Dove Soap"));
+            result.ForEach(x => x.Price.Should().Be(39.99));
         }
     }
 }

@@ -10,7 +10,7 @@ namespace ShoppingCart.Core
 
         public Cart()
         {
-            _products=new List<Product>();
+            _products = new List<Product>();
         }
 
         public async Task<double> RoundDecimals(decimal value)
@@ -23,9 +23,13 @@ namespace ShoppingCart.Core
             return 0;
         }
 
-        public async Task AddProduct(Product product)
+        public async Task AddProduct(Product product, int amount)
         {
-            _products.Add(product);
+            while (amount > 0)
+            {
+                _products.Add(product);
+                amount--;
+            }
         }
 
         public async Task<List<Product>> GetProducts()
